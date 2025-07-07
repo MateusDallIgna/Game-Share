@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongodb:27017/game-share
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=7d
+      - FRONTEND_URL=${FRONTEND_URL}
+      - MAX_FILE_SIZE=1073741824
+      - MAX_IMAGE_SIZE=10485760
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - game-share-network
+
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=game-share
+    volumes:
+      - mongodb_data:/data/db
+      - ./scripts/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    restart: unless-stopped
+    networks:
+      - game-share-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  game-share-network:
+    driver: bridge 

@@ -1,0 +1,19 @@
+{
+  "name": "game-share-database",
+  "version": "1.0.0",
+  "description": "Database scripts for Game Share distributed system",
+  "main": "init-db.js",
+  "scripts": {
+    "init": "node init-db.js",
+    "setup": "npm install && node init-db.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "keywords": ["database", "mongodb", "game-share", "oracle"],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 

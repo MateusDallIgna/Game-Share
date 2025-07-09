@@ -75,9 +75,9 @@ export default function Home() {
           <p>Be the first to upload a game!</p>
         </div>
       ) : (
-        <div className="grid">
-          {games.map(game => (
-            <div key={game._id} className="card">
+      <div className="grid">
+        {games.map(game => (
+          <div key={game._id} className="card">
               <img 
                 src={game.imageUrl} 
                 alt={`${game.title} thumbnail`} 
@@ -102,9 +102,9 @@ export default function Home() {
               >
                 Download
               </button>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
       )}
     </div>
   );

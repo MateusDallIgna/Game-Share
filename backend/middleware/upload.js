@@ -59,12 +59,22 @@ const imageFilter = (req, file, cb) => {
 // File filter for game files
 const gameFilter = (req, file, cb) => {
   const allowedTypes = /zip|rar|7z|exe|msi|dmg|pkg|deb|rpm|tar|gz/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+  const fileExtension = path.extname(file.originalname).toLowerCase();
+  const extname = allowedTypes.test(fileExtension);
+  
+  // Debug logging
+  console.log('Game file validation:', {
+    originalName: file.originalname,
+    fieldname: file.fieldname,
+    mimetype: file.mimetype,
+    extension: fileExtension,
+    isAllowed: extname
+  });
 
   if (extname) {
     return cb(null, true);
   } else {
-    cb(new Error('Only game files (zip, rar, exe, etc.) are allowed!'), false);
+    cb(new Error(`Only game files (zip, rar, exe, etc.) are allowed! Got: ${fileExtension}`), false);
   }
 };
 
@@ -121,19 +131,13 @@ const uploadGameWithImage = multer({
     }
   },
   limits: {
-    fileSize: (req, file, cb) => {
-      if (file.fieldname === 'image') {
-        return parseInt(process.env.MAX_IMAGE_SIZE) || 10 * 1024 * 1024; // 10MB
-      } else if (file.fieldname === 'file') {
-        return parseInt(process.env.MAX_FILE_SIZE) || 1024 * 1024 * 1024; // 1GB
-      }
-    }
+    fileSize: parseInt(process.env.MAX_FILE_SIZE) || 1024 * 1024 * 1024 // 1GB (use the larger limit for combined uploads)
   }
 });
 
 // Helper function to get file URL
 const getFileUrl = (filename, type = 'games') => {
-  const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 4000}`;
+  const baseUrl = process.env.BASE_URL || `http://137.131.233.211:${process.env.PORT || 4000}`;
   return `${baseUrl}/uploads/${type}/${filename}`;
 };
 

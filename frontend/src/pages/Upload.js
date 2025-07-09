@@ -98,7 +98,7 @@ export default function Upload() {
       
       // Check if upload was successful
       if (response.data.success) {
-        navigate('/');
+    navigate('/');
       } else {
         setError(response.data.error || 'Upload failed');
       }
@@ -118,18 +118,18 @@ export default function Upload() {
       <form onSubmit={handleSubmit} className="upload-form">
         <div className="form-group">
           <label htmlFor="title">Game Title *</label>
-          <input
+        <input
             id="title"
-            type="text"
+          type="text"
             placeholder="Enter game title"
-            value={title}
+          value={title}
             onChange={(e) => {
               setTitle(e.target.value);
               setError('');
             }}
             disabled={loading}
-            required
-          />
+          required
+        />
         </div>
 
         <div className="form-group">
@@ -169,14 +169,14 @@ export default function Upload() {
 
         <div className="form-group">
           <label htmlFor="image">Game Image *</label>
-          <input
+        <input
             id="image"
-            type="file"
-            accept="image/*"
+          type="file"
+          accept="image/*"
             onChange={handleImageChange}
             disabled={loading}
-            required
-          />
+          required
+        />
           {imagePreview && (
             <div className="image-preview">
               <img src={imagePreview} alt="Preview" />
@@ -187,13 +187,13 @@ export default function Upload() {
 
         <div className="form-group">
           <label htmlFor="file">Game File *</label>
-          <input
+        <input
             id="file"
-            type="file"
+          type="file"
             onChange={handleFileChange}
             disabled={loading}
-            required
-          />
+          required
+        />
           <small>Maximum size: 1GB</small>
         </div>
 

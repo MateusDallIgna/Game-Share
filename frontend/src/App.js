@@ -21,9 +21,9 @@ function Layout() {
           <Link to="/" className="nav-link">Game Share</Link>
         </div>
         <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
+        <Link to="/" className="nav-link">Home</Link>
           {isAuthenticated && (
-            <Link to="/upload" className="nav-link">Upload</Link>
+        <Link to="/upload" className="nav-link">Upload</Link>
           )}
         </div>
         <div className="nav-auth">

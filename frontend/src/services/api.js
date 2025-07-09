@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:4000',
-  timeout: 30000, // 30 seconds timeout
+  baseURL: process.env.REACT_APP_API_URL || 'http://137.131.233.211:4000',
+  timeout: 300000, // 5 minutes timeout for large uploads
   headers: {
     'Content-Type': 'application/json',
   }
@@ -11,11 +11,11 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    return config;
+  return config;
   },
   error => {
     console.error('Request error:', error);
